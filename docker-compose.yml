@@ -6,19 +6,15 @@ services:
     image: glpi:9.4.2
     ports:
       - 80:80
-    volumes:
-      - ./config_db.php:/var/www/html/config/config_db.php
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    #volumes:
+    #  - ./config_db.php:/var/www/html/config/config_db.php
     environment:
       - TIMEZONE=Europe/Paris
   # execute cron tasks
   glpi_cron:
     image: glpi:9.4.2
-    volumes:
-      - ./config_db.php:/var/www/html/config/config_db.php
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+    #volumes:
+    #  - ./config_db.php:/var/www/html/config/config_db.php
     environment:
       - TIMEZONE=Europe/Paris
     restart: always
@@ -28,19 +24,18 @@ services:
     image: mariadb:10
     volumes:
       - database:/var/lib/mysql
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+      
     environment:
       - MYSQL_ROOT_PASSWORD=mysecretrootpassword
       - MYSQL_DATABASE=glpi
       - MYSQL_USER=glpi
       - MYSQL_PASSWORD=mysecretglpipassword
       - TZ=Europe/Paris
-	  
+  
 volumes:
   database:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /local/mysql/storage/placement
+    #driver: local
+    #driver_opts:
+    #  type: none
+    #  o: bind
+    #  device: "/path/to/local/data/storage"
